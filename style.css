@@ -1,0 +1,249 @@
+*,
+*::after,
+*::before {
+  box-sizing: border-box;
+}
+
+:root {
+  font-size: 15px;
+}
+
+body {
+  margin: 0;
+  --color-text: #111;
+  --color-bg: #edeee9;
+  --color-link: #000;
+  --color-link-hover: #000;
+  --color-menu: #000;
+  --color-menu-hover: #f32015;
+  color: var(--color-text);
+  background-color: var(--color-bg);
+  --cursor-stroke: #000;
+  --cursor-fill: #000;
+  --cursor-stroke-width: 1px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-family: "Nanum Myeongjo", serif;
+}
+
+a {
+  text-decoration: none;
+  color: var(--color-link);
+  outline: none;
+  cursor: pointer;
+}
+
+a:hover,
+a:focus {
+  color: var(--color-link-hover);
+  outline: none;
+}
+
+.menu {
+  display: flex;
+  flex-direction: column;
+  padding: 8rem 0 20vh 0;
+  width: 80vw;
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  counter-reset: menucounter;
+}
+
+.menu__item {
+  margin-bottom: 1.4rem;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+
+.menu__item::before {
+  counter-increment: menucounter;
+  content: counters(menucounter, ".", decimal-leading-zero);
+  border-left: 4px solid currentColor;
+  height: 3rem;
+  padding-left: 1rem;
+  display: flex;
+  align-items: center;
+  line-height: 1;
+  font-size: 16px;
+  font-weight: bold;
+  opacity: 0;
+  transform: translateX(-1rem);
+  transition: transform 0.3s, opacity 0.3s;
+}
+
+.menu__item:hover::before {
+  opacity: 1;
+  transform: translateX(0);
+  z-index: 10;
+}
+
+.menu__item-text {
+  position: relative;
+  display: block;
+  padding: 0.5rem;
+  display: block;
+  overflow: hidden;
+  font-size: 3rem;
+}
+
+.menu__item:hover .menu__item-text {
+  z-index: 10;
+}
+
+.menu__item-textinner {
+  color: var(--color-menu);
+  text-transform: uppercase;
+  padding-left: 24rem;
+  white-space: nowrap;
+  transition: color 0.3s;
+}
+
+.menu__item:hover .menu__item-textinner {
+  color: var(--color-menu-hover);
+}
+
+.menu__item-sub {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 12px;
+  font-weight: bold;
+  text-transform: uppercase;
+  white-space: nowrap;
+  margin-left: 4rem;
+  align-items: center;
+  transform: translateX(-1rem);
+  opacity: 0;
+  transition: transform 0.3s, opacity 0.3s;
+}
+
+.menu__item:hover .menu__item-sub {
+  opacity: 1;
+  transform: translateX(0);
+  z-index: 10;
+}
+
+.menu__item-sub::before {
+  content: "";
+  border-left: 1px solid var(--color-text);
+  position: absolute;
+  top: -1rem;
+  left: -2.5rem;
+  height: 3rem;
+  transform-origin: 0 100%;
+  transform: rotate(22.5deg) scale3d(1, 0, 1);
+  transition: transform 0.3s;
+}
+
+.menu__item:hover .menu__item-sub::before {
+  transform: rotate(22.5deg) scale3d(1, 1, 1);
+  z-index: 10;
+}
+
+/* Cursor */
+
+.cursor {
+  position: absolute;
+  pointer-events: none;
+  transition-duration: 200ms;
+  transition-timing-function: ease-out;
+  z-index: 10;
+}
+
+.cursor__inner {
+  fill: var(--cursor-fill);
+  stroke: var(--cursor-stroke);
+  stroke-width: var(--cursor-stroke-width);
+  opacity: 0.3;
+}
+
+/* Image */
+
+.hover-reveal {
+  position: absolute;
+  left: 8rem;
+  width: 220px;
+  height: 320px;
+  pointer-events: none;
+  opacity: 0;
+  transition-duration: 250ms;
+  transition-timing-function: ease-out;
+}
+
+.hover-reveal__inner {
+  overflow: hidden;
+}
+
+.hover-reveal__inner,
+.hover-reveal__img {
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+
+.hover-reveal__img {
+  background-size: cover;
+  background-position: 50% 50%;
+}
+
+.menu__item:hover .hover-reveal {
+  opacity: 1;
+  z-index: 1;
+}
+
+/*! locomotive-scroll v3.5.4 | MIT License | https://github.com/locomotivemtl/locomotive-scroll */
+html.has-scroll-smooth {
+  overflow: hidden;
+}
+
+html.has-scroll-dragging {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.has-scroll-smooth body {
+  overflow: hidden;
+}
+
+.has-scroll-smooth [data-scroll-container] {
+  min-height: 100vh;
+}
+
+.c-scrollbar {
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 11px;
+  height: 100vh;
+  transform-origin: center right;
+  transition: transform 0.3s, opacity 0.3s;
+  opacity: 0;
+}
+.c-scrollbar:hover {
+  transform: scaleX(1.45);
+}
+.c-scrollbar:hover,
+.has-scroll-scrolling .c-scrollbar,
+.has-scroll-dragging .c-scrollbar {
+  opacity: 1;
+}
+
+.c-scrollbar_thumb {
+  position: absolute;
+  top: 0;
+  right: 0;
+  background-color: black;
+  opacity: 0.5;
+  width: 7px;
+  border-radius: 10px;
+  margin: 2px;
+  cursor: -webkit-grab;
+  cursor: grab;
+}
+.has-scroll-dragging .c-scrollbar_thumb {
+  cursor: -webkit-grabbing;
+  cursor: grabbing;
+}
